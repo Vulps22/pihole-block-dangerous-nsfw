@@ -18,14 +18,20 @@ an app store listing, or a screenshot of the Pi-hole query log while using the a
 
 ### In scope
 
+**The rule:** if a service can be used to roleplay with an AI character without content filtering,
+or with filters that are easy to get around, it belongs on the list. This includes:
+
 - Services whose **primary purpose** is AI character creation, character chat or roleplay
+- General or multi-model chat services that let users create characters or personas and chat with them uncensored
+- Hosted "uncensored" or "unfiltered" model chat sites
 - AI companion, girlfriend or boyfriend apps
 - Domains a service needs to work: API, CDN or websocket hosts owned by the service
 - Character-card sharing hubs and self-hosted roleplay frontends with a hosted web version
 
 ### Out of scope
 
-- General-purpose AI assistants (ChatGPT, Claude, Gemini, Copilot, Perplexity, and so on)
+- Mainstream assistants with enforced content policies (ChatGPT, Claude, Gemini, Copilot, Perplexity, and so on).
+  A mainstream assistant is added only if it offers an unfiltered character or roleplay mode.
 - Shared or third-party infrastructure: `cloudfront.net`, `firebaseio.com`, `googleapis.com`, analytics providers, and similar
 - Individual pages or paths. DNS blocking works on whole domains only.
 - Wildcards and regex. List the specific subdomain, or rely on the adblock format, which covers subdomains.

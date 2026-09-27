@@ -22,6 +22,8 @@ On Pi-hole v6, use **adblock.txt** so subdomains are blocked too.
 
 ## What belongs on this list
 
+**The rule:** if a service can be used to roleplay with an AI character uncensored, it belongs on this list.
+
 In scope:
 
 - Platforms where the main purpose is creating or chatting with AI characters or personas (e.g. `character.ai`, `janitorai.com`)
@@ -31,7 +33,7 @@ In scope:
 
 Out of scope:
 
-- General-purpose assistants such as ChatGPT, Claude, Gemini and Copilot. Use a separate "AI" list if you want to block those.
+- Mainstream assistants with enforced content policies (ChatGPT, Claude, Gemini, Copilot). Use a separate "AI" list if you want to block those.
 - Shared infrastructure such as CDNs or cloud providers that would break unrelated sites
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full criteria.

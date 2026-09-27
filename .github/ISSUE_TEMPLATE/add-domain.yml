@@ -32,5 +32,5 @@ body:
     attributes:
       label: Scope
       options:
-        - label: This service's main purpose is AI characters, roleplay or companionship. It is not a general-purpose assistant.
+        - label: This service can be used to roleplay with an AI character uncensored, or with filters that are easy to bypass.
           required: true

@@ -18,4 +18,4 @@
 
 - [ ] I edited `src/` only, not `dist/`
 - [ ] `python3 scripts/build.py --check` passes
-- [ ] The domains are in scope (see CONTRIBUTING.md) and are not general-purpose assistants or shared infrastructure
+- [ ] The domains are in scope (see CONTRIBUTING.md) and can be used for uncensored AI character roleplay, and are not shared infrastructure
