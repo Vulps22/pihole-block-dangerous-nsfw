@@ -1,0 +1,29 @@
+name: Remove a domain
+description: Report a false positive, or a dead or repurposed domain
+title: "[Remove] "
+labels: ["remove-domain"]
+body:
+  - type: textarea
+    id: domains
+    attributes:
+      label: Domain(s)
+      description: One per line.
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Reason
+      options:
+        - False positive (not an AI character or roleplay service)
+        - Domain is dead, parked or expired
+        - Domain now belongs to an unrelated business
+        - Shared infrastructure that breaks other sites
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What breaks, or what the domain is used for now.

@@ -1,0 +1,36 @@
+name: Add a domain
+description: Suggest an AI character / roleplay / companion service to block
+title: "[Add] "
+labels: ["add-domain"]
+body:
+  - type: textarea
+    id: domains
+    attributes:
+      label: Domain(s)
+      description: One per line. Domains only, not full URLs.
+      placeholder: |
+        example-chat.ai
+        api.example-chat.ai
+    validations:
+      required: true
+  - type: input
+    id: service
+    attributes:
+      label: Service name
+      placeholder: ExampleChat
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: What is the service, and how do you know these domains belong to it? Please don't post explicit content.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This service's main purpose is AI characters, roleplay or companionship. It is not a general-purpose assistant.
+          required: true
