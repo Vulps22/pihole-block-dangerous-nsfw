@@ -1,8 +1,17 @@
 name: Add a domain
-description: Suggest an AI character / roleplay / companion service to block
+description: Suggest a service to block
 title: "[Add] "
 labels: ["add-domain"]
 body:
+  - type: dropdown
+    id: list
+    attributes:
+      label: Which list?
+      options:
+        - aicharacter (uncensored AI character / roleplay / companion)
+        - anonvideochat (random stranger video chat)
+    validations:
+      required: true
   - type: textarea
     id: domains
     attributes:
@@ -32,5 +41,5 @@ body:
     attributes:
       label: Scope
       options:
-        - label: This service can be used to roleplay with an AI character uncensored, or with filters that are easy to bypass.
+        - label: This service meets the rule for the list I picked (see CONTRIBUTING.md).
           required: true

@@ -1,6 +1,6 @@
 # Title: AI Character Blocklist
-# Description: Blocks AI character creation, roleplay and companion services.
-# Homepage: https://github.com/Vulps22/pihole-block-ai-character-rp
+# Description: Blocks AI character, roleplay and companion services that can be used uncensored.
+# Homepage: https://github.com/Vulps22/pihole-block-dangerous-nsfw
 # Entries: 108
 
 achcha.fm

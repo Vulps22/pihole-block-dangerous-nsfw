@@ -1,0 +1,39 @@
+# Anonymous Video Chat Blocklist — source list
+#
+# Omegle-style services that pair users with random strangers over video.
+#
+# One domain per line. Lowercase, alphabetical order.
+# Inline notes are allowed:   example.tv  # Omegle clone, see #12
+#
+# Blocklists are built from this file into dist/. Do not edit dist/ by hand.
+# Run `python3 scripts/build.py --fix` to sort and de-duplicate before committing.
+
+azarlive.com
+bazoocam.org
+camloo.com
+camsurf.com
+camzap.com
+chatalternative.com
+chathub.cam
+chatrandom.com
+chatroulette.com
+chatspin.com
+chitchat.gg
+coomeet.com
+dirtyroulette.com
+emeraldchat.com
+flingster.com
+fruzo.com
+holla.world
+joingy.com
+minichat.com
+monkey.app
+ome.tv
+omegle.com
+shagle.com
+talkwithstranger.com
+thundr.com
+tinychat.com
+uhmegle.com
+umingle.com
+vidizzy.com

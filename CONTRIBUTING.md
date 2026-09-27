@@ -5,7 +5,7 @@ Thanks for helping. This list only works if it is accurate, so each change needs
 ## Adding a domain
 
 1. Check that the service is in scope (see below).
-2. Add the domain to `src/domains.txt`. Use lowercase, one domain per line, in alphabetical order.
+2. Add the domain to the right list in `src/`: `aicharacter.txt` or `anonvideochat.txt`. Use lowercase, one domain per line, in alphabetical order.
    You can add a short note with `#` if the reason isn't obvious:
    ```
    example-chat.ai  # API backend for the ExampleChat Android app
@@ -16,7 +16,7 @@ Thanks for helping. This list only works if it is accurate, so each change needs
 In the PR, explain **what the service is** and **how you know the domain belongs to it** (for example a link,
 an app store listing, or a screenshot of the Pi-hole query log while using the app).
 
-### In scope
+### aicharacter: in scope
 
 **The rule:** if a service can be used to roleplay with an AI character without content filtering,
 or with filters that are easy to get around, it belongs on the list. This includes:
@@ -28,8 +28,17 @@ or with filters that are easy to get around, it belongs on the list. This includ
 - Domains a service needs to work: API, CDN or websocket hosts owned by the service
 - Character-card sharing hubs and self-hosted roleplay frontends with a hosted web version
 
-### Out of scope
+### anonvideochat: in scope
 
+**The rule:** if a service pairs users with random strangers over live video or webcam, it belongs. This includes:
+
+- Omegle clones and "roulette" sites
+- Random video chat apps, and their API and media domains
+- Services that mix random text chat with random video
+
+### Out of scope (all lists)
+
+- Video calling with people you already know (FaceTime, Zoom, Discord, WhatsApp)
 - Mainstream assistants with enforced content policies (ChatGPT, Claude, Gemini, Copilot, Perplexity, and so on).
   A mainstream assistant is added only if it offers an unfiltered character or roleplay mode.
 - Shared or third-party infrastructure: `cloudfront.net`, `firebaseio.com`, `googleapis.com`, analytics providers, and similar

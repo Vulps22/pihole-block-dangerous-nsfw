@@ -10,12 +10,12 @@
      Examples: a link to the site, an app store listing, or a query log from using the app.
      Please don't post explicit screenshots. -->
 
-| Domain | Service | Evidence |
-| --- | --- | --- |
-|  |  |  |
+| List | Domain | Service | Evidence |
+| --- | --- | --- | --- |
+|  |  |  |  |
 
 ## Checklist
 
 - [ ] I edited `src/` only, not `dist/`
 - [ ] `python3 scripts/build.py --check` passes
-- [ ] The domains are in scope (see CONTRIBUTING.md) and can be used for uncensored AI character roleplay, and are not shared infrastructure
+- [ ] The domains are in scope (see CONTRIBUTING.md) and meet the rule for their list, and are not shared infrastructure

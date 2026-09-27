@@ -1,46 +1,40 @@
-# Pi-hole AI Character / Roleplay Blocklist
+# Pi-hole Dangerous NSFW Blocklists
 
-A community-maintained blocklist for **AI character creation, roleplay and "AI companion" services**,
-such as Character.AI, Chai, JanitorAI, Talkie, Replika and similar.
+Community-maintained blocklists for online services that are commonly used for dangerous or exploitative sexual
+content, even when they advertise safety filters. They're built for Pi-hole, but work with most DNS and ad blockers.
 
-Many of these services allow, or can easily be pushed into, sexual roleplay despite their safety filters, and
-some are advertised as "limitless". This list is for parents, schools and anyone else who wants to block this
-category on their network.
+## The lists
 
-## Using the list
+| List | What it blocks |
+| --- | --- |
+| **aicharacter** | AI character, roleplay and "AI companion" services that can be used uncensored (Character.AI, JanitorAI, Chai, Talkie, Replika…) |
+| **anonvideochat** | Omegle-style random video chat that pairs you with strangers (OmeTV, Chatroulette, Monkey, Uhmegle…) |
 
-Pick the format that suits your blocker:
+## Using the lists
 
-| Format | URL | Works with |
-| --- | --- | --- |
-| Domains | `https://raw.githubusercontent.com/Vulps22/pihole-block-ai-character-rp/main/dist/domains.txt` | Pi-hole v5/v6, Technitium, most DNS blockers (exact match) |
-| Adblock | `https://raw.githubusercontent.com/Vulps22/pihole-block-ai-character-rp/main/dist/adblock.txt` | Pi-hole v6, AdGuard Home, uBlock Origin (**also blocks subdomains**) |
-| Hosts | `https://raw.githubusercontent.com/Vulps22/pihole-block-ai-character-rp/main/dist/hosts.txt` | Anything that reads a hosts file |
+Each list comes in three formats. Use **adblock** on Pi-hole v6, because it also blocks subdomains.
 
-**Pi-hole:** Go to *Lists* (or *Adlists* on v5), paste the URL, add it, then run `pihole -g` or update gravity from the web UI.
-On Pi-hole v6, use **adblock.txt** so subdomains are blocked too.
+| List | Adblock (Pi-hole v6, AdGuard Home, uBO) | Domains (Pi-hole v5) | Hosts |
+| --- | --- | --- | --- |
+| aicharacter | `https://raw.githubusercontent.com/Vulps22/pihole-block-dangerous-nsfw/main/dist/aicharacter.txt` | `https://raw.githubusercontent.com/Vulps22/pihole-block-dangerous-nsfw/main/dist/domains/aicharacter.txt` | `https://raw.githubusercontent.com/Vulps22/pihole-block-dangerous-nsfw/main/dist/hosts/aicharacter.txt` |
+| anonvideochat | `https://raw.githubusercontent.com/Vulps22/pihole-block-dangerous-nsfw/main/dist/anonvideochat.txt` | `https://raw.githubusercontent.com/Vulps22/pihole-block-dangerous-nsfw/main/dist/domains/anonvideochat.txt` | `https://raw.githubusercontent.com/Vulps22/pihole-block-dangerous-nsfw/main/dist/hosts/anonvideochat.txt` |
 
-## What belongs on this list
+**Pi-hole:** Go to *Lists* (or *Adlists* on v5), paste the URL, add it, then update gravity (*Tools → Update Gravity*, or `pihole -g`).
 
-**The rule:** if a service can be used to roleplay with an AI character uncensored, it belongs on this list.
+## What belongs on each list
 
-In scope:
+**aicharacter.** The rule: *if a service can be used to roleplay with an AI character uncensored, or with filters that are easy to get around, it belongs.*
+This covers character chat platforms, AI girlfriend/boyfriend/companion apps, character-card hubs, hosted "uncensored" model chat,
+and the API or CDN domains these services use. Mainstream assistants with enforced content policies (ChatGPT, Claude, Gemini, Copilot) are left off.
 
-- Platforms where the main purpose is creating or chatting with AI characters or personas (e.g. `character.ai`, `janitorai.com`)
-- AI girlfriend, boyfriend and companion apps (e.g. `replika.com`, `candy.ai`)
-- The API, CDN and app backend domains these services need to work
-- Character-card hubs and roleplay frontends (e.g. `chub.ai`)
+**anonvideochat.** The rule: *if a service pairs users with random strangers over live video or webcam, it belongs.* This covers Omegle clones,
+"roulette" sites and random video chat apps. Video calling with people you already know (FaceTime, Zoom, Discord) is left off.
 
-Out of scope:
-
-- Mainstream assistants with enforced content policies (ChatGPT, Claude, Gemini, Copilot). Use a separate "AI" list if you want to block those.
-- Shared infrastructure such as CDNs or cloud providers that would break unrelated sites
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full criteria.
+Neither list includes shared infrastructure (CDNs, cloud providers, analytics). See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Contributing
 
-- **Suggest a domain:** open an [issue](../../issues/new/choose) or a pull request that edits `src/domains.txt`
+- **Suggest a domain:** open an [issue](../../issues/new/choose), or a pull request that edits the right file in `src/`
 - **Report a false positive:** open a removal issue
 
 Only `src/` is edited by hand. `dist/` is rebuilt automatically when changes are merged.
@@ -48,10 +42,12 @@ Only `src/` is edited by hand. `dist/` is rebuilt automatically when changes are
 ## Repository layout
 
 ```
-src/domains.txt       the source list, edited by contributors
-src/allowlist.txt     domains that must never be blocked
-dist/                 generated lists (do not edit)
-scripts/build.py      validates src/ and builds dist/
+src/<list>.txt        source lists, edited by contributors
+src/allowlist.txt     domains that must never be blocked (applies to all lists)
+dist/<list>.txt       generated adblock-format lists (do not edit)
+dist/domains/         generated plain-domain lists
+dist/hosts/           generated hosts-file lists
+scripts/build.py      validates src/ and builds dist/ (new lists are registered in LISTS here)
 scripts/check_dead.py reports domains that no longer resolve
 ```
 

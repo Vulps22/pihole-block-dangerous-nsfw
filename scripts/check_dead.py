@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Report domains in src/domains.txt that no longer resolve.
+"""Report domains in the src/ lists that no longer resolve.
 
 This is informational only — a domain that fails DNS may be temporarily down,
 geo-blocked, or only used by an app's API. Maintainers should verify before removing.
@@ -12,7 +12,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(__file__))
-from build import SRC, parse  # noqa: E402
+from build import LISTS, SRC, parse  # noqa: E402
 
 socket.setdefaulttimeout(5)
 
@@ -26,13 +26,14 @@ def resolves(domain):
 
 
 def main():
-    _, entries = parse(SRC)
-    domains = [d for _, d, _ in entries]
-    with ThreadPoolExecutor(max_workers=16) as pool:
-        dead = [d for d, ok in zip(domains, pool.map(resolves, domains)) if not ok]
-
-    lines = [f"## Dead domain check", "", f"Checked {len(domains)} domains, {len(dead)} did not resolve.", ""]
-    lines += [f"- `{d}`" for d in dead]
+    lines = ["## Dead domain check", ""]
+    for name in LISTS:
+        _, entries = parse(SRC / f"{name}.txt")
+        domains = [d for _, d, _ in entries]
+        with ThreadPoolExecutor(max_workers=16) as pool:
+            dead = [d for d, ok in zip(domains, pool.map(resolves, domains)) if not ok]
+        lines += [f"### {name}", "", f"Checked {len(domains)} domains, {len(dead)} did not resolve.", ""]
+        lines += [f"- `{d}`" for d in dead] + [""]
     report = "\n".join(lines) + "\n"
 
     print(report)

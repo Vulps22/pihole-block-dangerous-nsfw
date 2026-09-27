@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate src/domains.txt and build the blocklists in dist/.
+"""Validate the source lists in src/ and build the blocklists in dist/.
 
 Usage:
     python3 scripts/build.py           # validate, then build dist/
@@ -13,13 +13,23 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "src" / "domains.txt"
-ALLOW = ROOT / "src" / "allowlist.txt"
+SRC = ROOT / "src"
+ALLOW = SRC / "allowlist.txt"
 DIST = ROOT / "dist"
 
-TITLE = "AI Character Blocklist"
-HOMEPAGE = "https://github.com/Vulps22/pihole-block-ai-character-rp"
-DESCRIPTION = "Blocks AI character creation, roleplay and companion services."
+HOMEPAGE = "https://github.com/Vulps22/pihole-block-dangerous-nsfw"
+
+# name -> (title, description). Each list is read from src/<name>.txt.
+LISTS = {
+    "aicharacter": (
+        "AI Character Blocklist",
+        "Blocks AI character, roleplay and companion services that can be used uncensored.",
+    ),
+    "anonvideochat": (
+        "Anonymous Video Chat Blocklist",
+        "Blocks Omegle-style random video chat services that pair strangers.",
+    ),
+}
 
 LABEL = r"(?!-)[a-z0-9-]{1,63}(?<!-)"
 DOMAIN_RE = re.compile(rf"^(?:{LABEL}\.)+[a-z]{{2,63}}$|^(?:{LABEL}\.)+xn--[a-z0-9-]{{1,59}}$")
@@ -75,26 +85,26 @@ def fix(path, header, entries):
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def build(domains):
-    DIST.mkdir(exist_ok=True)
+def build(name, domains):
+    title, description = LISTS[name]
     meta = [
-        f"Title: {TITLE}",
-        f"Description: {DESCRIPTION}",
+        f"Title: {title}",
+        f"Description: {description}",
         f"Homepage: {HOMEPAGE}",
         f"Entries: {len(domains)}",
     ]
     outputs = {
-        # Plain domains: Pi-hole (v5/v6), Technitium, NextDNS etc. Exact-match only.
-        "domains.txt": ("# ", domains),
-        # Hosts file: anything that reads /etc/hosts-style lists.
-        "hosts.txt": ("# ", [f"0.0.0.0 {d}" for d in domains]),
         # Adblock syntax: Pi-hole v6, AdGuard Home, uBlock Origin. Also blocks subdomains.
-        "adblock.txt": ("! ", [f"||{d}^" for d in domains]),
+        DIST / f"{name}.txt": ("! ", [f"||{d}^" for d in domains]),
+        # Plain domains: Pi-hole v5, Technitium, NextDNS etc. Exact-match only.
+        DIST / "domains" / f"{name}.txt": ("# ", domains),
+        # Hosts file: anything that reads /etc/hosts-style lists.
+        DIST / "hosts" / f"{name}.txt": ("# ", [f"0.0.0.0 {d}" for d in domains]),
     }
-    for name, (comment, body) in outputs.items():
-        text = "\n".join([comment + m for m in meta] + [""] + body) + "\n"
-        (DIST / name).write_text(text, encoding="utf-8")
-    print(f"Built {len(outputs)} lists with {len(domains)} domains in {DIST.relative_to(ROOT)}/")
+    for path, (comment, body) in outputs.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\n".join([comment + m for m in meta] + [""] + body) + "\n", encoding="utf-8")
+    print(f"Built {name}: {len(domains)} domains")
 
 
 def main():
@@ -104,27 +114,40 @@ def main():
     mode.add_argument("--fix", action="store_true", help="sort and de-duplicate source files before building")
     args = parser.parse_args()
 
+    sources = {name: SRC / f"{name}.txt" for name in LISTS}
+    unknown = sorted(p.name for p in SRC.glob("*.txt") if p != ALLOW and p not in sources.values())
+    if unknown:
+        print(f"Unknown source file(s) in src/: {', '.join(unknown)} — add them to LISTS in scripts/build.py",
+              file=sys.stderr)
+        return 1
+
     if args.fix:
-        for path in (SRC, ALLOW):
+        for path in [*sources.values(), ALLOW]:
             fix(path, *parse(path))
 
-    _, block = parse(SRC)
     _, allow = parse(ALLOW)
-    errors = validate(SRC, block) + validate(ALLOW, allow)
-
+    errors = validate(ALLOW, allow)
     allowed = {d for _, d, _ in allow}
-    for lineno, domain, _ in block:
-        if domain in allowed:
-            errors.append(f"src/domains.txt:{lineno}: '{domain}' is in src/allowlist.txt")
+
+    lists = {}
+    for name, path in sources.items():
+        _, entries = parse(path)
+        errors += validate(path, entries)
+        for lineno, domain, _ in entries:
+            if domain in allowed:
+                errors.append(f"src/{path.name}:{lineno}: '{domain}' is in src/allowlist.txt")
+        lists[name] = [d for _, d, _ in entries]
 
     if errors:
         print("\n".join(errors), file=sys.stderr)
         print(f"\n{len(errors)} problem(s) found. Try `python3 scripts/build.py --fix` for ordering/duplicates.", file=sys.stderr)
         return 1
 
-    print(f"OK: {len(block)} domains, {len(allow)} allowlisted")
+    for name, domains in lists.items():
+        print(f"OK: {name} ({len(domains)} domains)")
     if not args.check:
-        build([d for _, d, _ in block])
+        for name, domains in lists.items():
+            build(name, domains)
     return 0
 
 

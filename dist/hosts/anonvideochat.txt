@@ -1,0 +1,34 @@
+# Title: Anonymous Video Chat Blocklist
+# Description: Blocks Omegle-style random video chat services that pair strangers.
+# Homepage: https://github.com/Vulps22/pihole-block-dangerous-nsfw
+# Entries: 29
+
+0.0.0.0 azarlive.com
+0.0.0.0 bazoocam.org
+0.0.0.0 camloo.com
+0.0.0.0 camsurf.com
+0.0.0.0 camzap.com
+0.0.0.0 chatalternative.com
+0.0.0.0 chathub.cam
+0.0.0.0 chatrandom.com
+0.0.0.0 chatroulette.com
+0.0.0.0 chatspin.com
+0.0.0.0 chitchat.gg
+0.0.0.0 coomeet.com
+0.0.0.0 dirtyroulette.com
+0.0.0.0 emeraldchat.com
+0.0.0.0 flingster.com
+0.0.0.0 fruzo.com
+0.0.0.0 holla.world
+0.0.0.0 joingy.com
+0.0.0.0 minichat.com
+0.0.0.0 monkey.app
+0.0.0.0 ome.tv
+0.0.0.0 omegle.com
+0.0.0.0 shagle.com
+0.0.0.0 talkwithstranger.com
+0.0.0.0 thundr.com
+0.0.0.0 tinychat.com
+0.0.0.0 uhmegle.com
+0.0.0.0 umingle.com
+0.0.0.0 vidizzy.com

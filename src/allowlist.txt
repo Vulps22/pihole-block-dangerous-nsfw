@@ -1,8 +1,8 @@
-# AI Character Blocklist — allowlist
+# Allowlist (applies to every list)
 #
 # Domains listed here must never appear in the blocklist (e.g. shared
 # infrastructure or known false positives). The build fails if a domain
-# in src/domains.txt is also listed here.
+# in any src/ list is also listed here.
 #
 # One domain per line. Lowercase, alphabetical order.
 
