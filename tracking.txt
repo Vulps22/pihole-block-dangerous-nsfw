@@ -1,0 +1,6 @@
+# Tracking and telemetry
+#
+# Exact domains only.
+
+nrdp.logs.netflix.com
+plog.vstlsrv.com

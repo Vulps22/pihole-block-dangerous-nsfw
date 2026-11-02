@@ -1,0 +1,7 @@
+# Fast food delivery services
+#
+# ||domain^ covers the domain and every subdomain.
+
+||deliveroo.com^
+||just-eat.com^
+||ubereats.com^
