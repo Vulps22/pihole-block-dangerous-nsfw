@@ -1,8 +1,7 @@
 # Exceptions i need to make on my own pihole for legitimate reasons
 #
 # One entry per line, with the reason on a comment line above it.
-# ||domain^ covers the domain and every subdomain.
+# @@||domain^ allows the domain and every subdomain.
 
 # Azure VPN for work
-||vpn.azure.com^
 @@||vpn.azure.com^
