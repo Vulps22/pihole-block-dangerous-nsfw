@@ -1,0 +1,3 @@
+# Exceptions i need to make on my own pihole for legitimate reasons
+#
+# One domain per line. Each one needs a reason beside it:   example.com  # why
