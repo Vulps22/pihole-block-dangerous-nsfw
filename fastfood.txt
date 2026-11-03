@@ -5,3 +5,5 @@
 ||deliveroo.com^
 ||just-eat.com^
 ||ubereats.com^
+||dominos.co.uk^
+||mcdonalds.com^
